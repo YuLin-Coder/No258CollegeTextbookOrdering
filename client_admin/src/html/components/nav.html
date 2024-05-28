@@ -1,0 +1,40 @@
+<!-- 导航栏 -->
+<nav class="navbar navbar-expand-lg navbar-light" id="nav">
+
+	<!-- 小屏导航按钮 -->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+	 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!-- /小屏导航按钮 -->
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<!-- 导航 -->
+		<ul class="navbar-nav mr-auto text-left">
+			<li class="nav-item active">
+				<a class="nav-link" href="index.html">首页 <span class="sr-only">(current)</span></a>
+			</li>
+			{{each nav_top as o idx}}
+				{{if o.father_id === 0}}
+				<li class="nav-item dropdown">
+					<a class="nav-link {{ nav_top.getObj({'father_id':o.nav_id}) ? ' dropdown-toggle':''}}" href="{{o.url}}" id="navbarDropdown{{idx}}"
+					 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						{{o.name}}
+					</a>
+					{{if nav_top.getObj({'father_id':o.nav_id})}}
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown{{idx}}">
+						{{each nav_top as o2 idx2}}
+						{{if o.nav_id === o2.father_id}}
+						<a class="dropdown-item" href="{{o2.url}}">{{o2.name}}</a>
+						{{/if}}
+						{{/each}}
+					</div>
+					{{/if}}
+				</li>
+				{{/if}}
+			{{/each}}
+		</ul>
+		<!-- /导航 -->
+	</div>
+</nav>
+<!-- /导航栏 -->

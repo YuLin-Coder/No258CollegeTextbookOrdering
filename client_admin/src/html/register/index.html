@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="author" content="Kodinger" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>My Resigster Page</title>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+		<style>
+			html,
+    body {
+      height: 100%;
+    }
+
+    body.my-login-page {
+      background-color: #f7f9fb;
+      font-size: 14px;
+    }
+
+    .my-login-page .brand {
+      width: 90px;
+      height: 90px;
+      overflow: hidden;
+      border-radius: 50%;
+      margin: 40px auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      position: relative;
+      z-index: 1;
+    }
+
+    .my-login-page .brand img {
+      width: 100%;
+    }
+
+    .my-login-page .card-wrapper {
+      width: 400px;
+    }
+
+    .my-login-page .card {
+      border-color: transparent;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .my-login-page .card.fat {
+      padding: 10px;
+    }
+
+    .my-login-page .card .card-title {
+      margin-bottom: 30px;
+    }
+
+    .my-login-page .form-control {
+      border-width: 2.3px;
+    }
+
+    .my-login-page .form-group label {
+      width: 100%;
+    }
+
+    .my-login-page .btn.btn-block {
+      padding: 12px 10px;
+    }
+
+    .my-login-page .footer {
+      margin: 40px 0;
+      color: #888;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 425px) {
+      .my-login-page .card-wrapper {
+        width: 90%;
+        margin: 0 auto;
+      }
+    }
+
+    @media screen and (max-width: 320px) {
+      .my-login-page .card.fat {
+        padding: 0;
+      }
+
+      .my-login-page .card.fat .card-body {
+        padding: 15px;
+      }
+    }
+
+    .my-login-page .select_wrap {
+      right: 0;
+      bottom: 7rem;
+      z-index: 100;
+    }
+  </style>
+	</head>
+	<body class="my-login-page">
+		<section class="h-100">
+			<div class="container h-100">
+				<div class="row justify-content-md-center h-100">
+					<div class="card-wrapper">
+						<div class="brand">
+							<img src="/img/logo_1.jpg" alt="bootstrap 4 login page" />
+						</div>
+						<div class="card fat">
+							<div class="card-body">
+								<h4 class="card-title">注册</h4>
+								<form method="POST" class="my-login-validation position-relative" novalidate="">
+
+									<div class="form-group">
+										<label for="nickname">昵称</label>
+										<input id="nickname" type="text" class="form-control" name="nickname" required autofocus />
+										<div class="invalid-feedback">您的昵称没有填</div>
+									</div>
+
+									<div class="form-group">
+										<label for="username">用户名</label>
+										<input id="username" class="form-control" name="username" required />
+										<div class="invalid-feedback">用户名已存在</div>
+									</div>
+
+									<div class="form-group">
+										<label for="password">密码</label>
+										<input id="password" type="password" class="form-control" name="password" onBlur="same_validate()" required />
+										<div class=" invalid-feedback">密码不能为空
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="re_password">确认密码</label>
+										<input id="re_password" type="password" class="form-control" name="re_password" required onBlur="same_validate()" />
+										<div class="invalid-feedback">密码不一致</div>
+									</div>
+
+									<div class="form-group">
+										<div class="custom-checkbox custom-control">
+											<input type="checkbox" name="agree" id="agree" class="custom-control-input" required="" />
+											<label for="agree" class="custom-control-label">本人同意<a href="#">条款及细则</a></label>
+											<div class="invalid-feedback">你必须同意我们的条款和条件</div>
+										</div>
+									</div>
+
+									<div class="form-group m-0">
+										<button type="button" id="submit" onclick="ajax_post()" class="btn btn-primary btn-block" disabled>注册</button>
+									</div>
+									<div class="mt-4 text-center">已经有账户了? <a href="/login">登录</a></div>
+
+									<!-- 权限下拉框 -->
+									<div class="select_wrap position-absolute">
+										<select class="group_select">
+											{{each group_list obj i}}
+											<option value="{{obj.name}}">{{obj.name}}</option>
+											{{/each}}
+										</select>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="footer">Copyright &copy; 2017 &mdash; Your Company</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- 模态框 -->
+		<div>
+			<button type="button" class="btn btn-primary modal_button d-none" data-toggle="modal" data-target="#exampleModal"></button>
+			<div class="modal fade" id="exampleModal" tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							输入不能为空
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">关闭</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 注册成功的模态框 -->
+		<div>
+			<button type="button" class="btn btn-primary success_modal_button d-none" data-toggle="modal" data-target="#successModal"></button>
+			<div class="modal fade" id="successModal" tabindex="-1">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body">
+							注册成功
+						</div>
+						<div class="modal-footer">
+							<a class="btn btn-sm btn-primary" href="/login">前去登录</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/bootstrap.bundle.min.js"></script>
+		<script>
+			// 验证密码是否一致
+			function same_validate() {
+				var password = document.getElementById("password").value;
+				var re_password = document.getElementById("re_password").value;
+				// 对比两次输入的密码
+				if (password == re_password) {
+					$("#re_password+.invalid-feedback").css("display", "none");
+					document.getElementById("submit").disabled = false;
+				} else {
+					$("#re_password+.invalid-feedback").css("display", "block");
+					document.getElementById("submit").disabled = true;
+				}
+			}
+
+			function ajax_post() {
+				var nickname = $("#nickname").val();
+				var username = $("#username").val();
+				var password = $("#password").val();
+				var options = $(".group_select option:selected");
+				var user_group = options.val();
+				if (is_empty(username, password)) {
+					return
+				}
+				$.ajax({
+					url: "/api/register",
+					data: {
+						nickname,
+						username,
+						password,
+						user_group
+					},
+					type: "POST",
+					dataType: "json",
+					success: function(data) {
+						if (data.error) {
+							$("#username+.invalid-feedback").css("display", "block")
+						} else {
+							$(".success_modal_button").click()
+						}
+					},
+					error: function(error) {
+						console.log("失败");
+						console.log(error);
+						$("#username+.invalid-feedback").css("display", "block")
+					}
+				});
+			}
+			// 判断是否为空，为空弹窗
+			function is_empty() {
+				for (var index in arguments) {
+					if (arguments[index] == "") {
+						$(".modal_button").click()
+						return true
+					}
+				}
+				return false
+			}
+		</script>
+	</body>
+
+</html>

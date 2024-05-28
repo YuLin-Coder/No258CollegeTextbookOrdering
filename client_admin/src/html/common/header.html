@@ -1,0 +1,28 @@
+<header id="header">
+	<%include('../components/ad.html',{list: list_ad,location:"店招"})%>
+	<div class="warp">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<!-- LOGO -->
+					<!-- LOGO HTML -->
+					<a class="logo" href="/">
+						<figure>
+							<img src="/img/logo.png">
+						</figure>
+					</a>
+
+					<%include('../components/nav.html')%>
+
+					<!-- 搜索栏 -->
+					<form class="form-inline my-2 my-lg-0">
+						<input class="form-control mr-sm-2" type="search" placeholder="搜索" aria-label="search">
+						<button class="btn btn-primary my-2 my-sm-0" type="submit">搜索</button>
+					</form>
+					<!-- /搜索栏 -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

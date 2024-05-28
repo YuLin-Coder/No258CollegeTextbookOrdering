@@ -1,0 +1,77 @@
+<!-- 轮播图 -->
+<div id="slide" class="carousel slide" data-ride="carousel">
+	<!-- 轮播标识 -->
+	<ol class="carousel-indicators">
+		{{each list_slides as o idx}}
+		<li data-target="#slide" data-slide-to="{{idx}}" class="{{idx==0?'active':''}}"></li>
+		{{/each}}
+	</ol>
+	<!-- /轮播标识 -->
+
+	<!-- 图片 -->
+	<div class="carousel-inner carousel-vertical">
+		{{each list_slides as o idx}}
+		<div class="carousel-item {{idx == 0? ' active': ''}}">
+			<a href="{{o.url}}">
+				<figure>
+					<img src="{{o.img}}" class="d-block w-100" alt="{{o.alt}}">
+					<figcaption>
+						<span>{{o.title}}</span>
+					</figcaption>
+				</figure>
+			</a>
+		</div>
+		{{/each}}
+	</div>
+	<!-- /图片 -->
+</div>
+<style type="text/css">
+	@media (max-width:767px) {
+		#slide .carousel-inner img {
+			height: 300px;
+		}
+	}
+
+	@media (min-width:768px) {
+		#slide .carousel-inner img {
+			height: 400px;
+		}
+	}
+
+	@media (min-width:992px) {
+		#slide .carousel-inner img {
+			height: 500px;
+		}
+	}
+
+	#slide .carousel-inner figcaption {
+		position: absolute;
+		width: 100%;
+		color: white;
+		text-shadow: 5px 0 3px #005CBF;
+		text-align: center;
+		bottom: 3rem;
+	}
+
+	/* 轮播图*/
+	#slide .carousel-vertical .carousel-item-next.carousel-item-left,
+	#slide .carousel-vertical .carousel-item-prev.carousel-item-right {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+
+	#slide .carousel-vertical .active.carousel-item-left,
+	#slide .carousel-vertical .carousel-item-prev {
+		-webkit-transform: translateY(-100%);
+		transform: translateY(-100%);
+	}
+
+	#slide .carousel-vertical .active.carousel-item-right,
+	#slide .carousel-vertical .carousel-item-next {
+		-webkit-transform: translateY(100%);
+		transform: translateY(100%);
+	}
+
+	/* /轮播图 */
+</style>
+<!-- /轮播图 -->

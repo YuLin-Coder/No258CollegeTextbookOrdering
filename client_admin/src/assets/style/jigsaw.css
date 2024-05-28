@@ -1,0 +1,124 @@
+.block {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.sliderContainer {
+  position: relative;
+  text-align: center;
+  border-radius:21px;
+  width: 310px;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 15px;
+  background: #f7f9fa;
+  color: #45494c;
+  border: 1px solid #e4e7eb;
+  overflow:hidden;
+}
+
+.sliderContainer_active .slider {
+  height: 41px;
+  top: -1px;
+  border: 1px solid #1991FA;
+}
+
+.sliderContainer_active .sliderMask {
+  height: 43px;
+  border-width: 0px;
+}
+
+.sliderContainer_success .slider {
+  height: 41px;
+  top: -1px;
+  border: 1px solid #52CCBA;
+  background-color: #52CCBA !important;
+}
+
+.sliderContainer_success .sliderMask {
+  height: 42px;
+  border: 0px solid #52CCBA;
+  background-color: #D2F4EF;
+}
+
+.sliderContainer_success .sliderIcon {
+  background-position: 0 0 !important;
+}
+
+.sliderContainer_fail .slider {
+  height: 41px;
+  top: 0px;
+  border: 0px solid #f57a7a;
+  background-color: #f57a7a !important;
+}
+
+.sliderContainer_fail .sliderMask {
+  height: 43px;
+  border:none;
+  border: 0px solid #f57a7a;
+  background-color: #fce1e1;
+}
+
+.sliderContainer_fail .sliderIcon {
+  background-position: 0 -83px !important;
+}
+.sliderContainer_active .sliderText, .sliderContainer_success .sliderText, .sliderContainer_fail .sliderText {
+  display: none;
+}
+
+.sliderMask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 42px;
+  border: 0 solid #1991FA;
+  background: #D1E9FE;
+
+}
+
+.slider {
+  position: absolute;
+  border-radius:0 50% 50% 0;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background .2s linear;
+}
+
+.slider:hover {
+  background: #1991FA;
+}
+
+.slider:hover .sliderIcon {
+  background-position: center;
+}
+
+.sliderIcon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  background: url('../images/refresh.png') no-repeat;
+  background-size: 20px 20px;
+  background-position: center;
+}
+
+.refreshIcon {
+  right: 80px;
+  top: -32px;
+  position: absolute;
+  /* right: 0;
+  top: 0; */
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  background: url('../images/refresh.png') no-repeat;
+  background-size: 15px 15px;
+  background-position: center;
+}

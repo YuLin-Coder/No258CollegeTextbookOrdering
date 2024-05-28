@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="author" content="Kodinger" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>修改密码</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body.my-login-page {
+      background-color: #f7f9fb;
+      font-size: 14px;
+    }
+
+    .my-login-page .brand {
+      width: 90px;
+      height: 90px;
+      overflow: hidden;
+      border-radius: 50%;
+      margin: 40px auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      position: relative;
+      z-index: 1;
+    }
+
+    .my-login-page .brand img {
+      width: 100%;
+    }
+
+    .my-login-page .card-wrapper {
+      width: 400px;
+    }
+
+    .my-login-page .card {
+      border-color: transparent;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .my-login-page .card.fat {
+      padding: 10px;
+    }
+
+    .my-login-page .card .card-title {
+      margin-bottom: 30px;
+    }
+
+    .my-login-page .form-control {
+      border-width: 2.3px;
+    }
+
+    .my-login-page .form-group label {
+      width: 100%;
+    }
+
+    .my-login-page .btn.btn-block {
+      padding: 12px 10px;
+    }
+
+    .my-login-page .footer {
+      margin: 40px 0;
+      color: #888;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 425px) {
+      .my-login-page .card-wrapper {
+        width: 90%;
+        margin: 0 auto;
+      }
+    }
+
+    @media screen and (max-width: 320px) {
+      .my-login-page .card.fat {
+        padding: 0;
+      }
+
+      .my-login-page .card.fat .card-body {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body class="my-login-page">
+  <section class="h-100">
+    <div class="container h-100">
+      <div class="row justify-content-md-center h-100">
+        <div class="card-wrapper">
+          <div class="brand">
+            <img src="/img/logo_1.jpg" alt="logo" />
+          </div>
+          <div class="card fat">
+            <div class="card-body">
+              <h4 class="card-title">修改密码</h4>
+              <form method="POST" class="my-login-validation" novalidate="">
+                <div class="form-group">
+                  <label for="o_password">原密码</label>
+                  <input id="o_password" type="password" class="form-control" name="o_password" required data-eye />
+                  <div class="invalid-feedback">原密码错误</div>
+                </div>
+                <div class="form-group">
+                  <label for="password">新密码</label>
+                  <input id="password" onblur="same_validate()" type="password" class="form-control" name="password"
+                    required data-eye />
+                  <div class="invalid-feedback">密码不能为空</div>
+                </div>
+
+                <div class="form-group">
+                  <label for="re_password">确认密码</label>
+                  <input id="re_password" onblur="same_validate()" type="password" class="form-control"
+                    name="re_password" required data-eye />
+                  <div class="invalid-feedback">密码不一致</div>
+                </div>
+
+                <div class="form-group m-0">
+                  <button type="button" id="submit" onclick="ajax_post()"
+                    class="btn btn-primary btn-block">保存修改</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="footer">Copyright &copy; 2017 &mdash; Your Company</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- 模态框 -->
+  <div>
+    <button type="button" class="btn btn-primary modal_button d-none" data-toggle="modal"
+      data-target="#exampleModal"></button>
+    <div class="modal fade" id="exampleModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            输入不能为空
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">关闭</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 修改成功的模态框 -->
+  <div>
+    <button type="button" class="btn btn-primary success_modal_button d-none" data-toggle="modal"
+      data-target="#successModal"></button>
+    <div class="modal fade" id="successModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            修改成功
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-sm btn-primary" href="/login">前去登录</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // 验证密码是否一致
+    function same_validate() {
+      var password = document.getElementById("password").value;
+      var re_password = document.getElementById("re_password").value;
+      // 对比两次输入的密码
+      if (password == re_password) {
+        $("#re_password+.invalid-feedback").css("display", "none");
+        document.getElementById("submit").disabled = false;
+      }
+      else {
+        $("#re_password+.invalid-feedback").css("display", "block");
+        document.getElementById("submit").disabled = true;
+      }
+    }
+
+    function ajax_post() {
+      var username = localStorage.getItem("username");
+      console.log($);
+      var password = $("#password").val();
+      var o_password = $("#o_password").val();
+      // 提交前判断是否为空
+      if (is_empty(username, password, o_password)) {
+        return
+      }
+      $.ajax({
+        url: "/api/change_password",
+        data: { o_password, password, username },
+        type: "POST",
+        dataType: "json",
+        success: function (data) {
+          console.log(data);
+          if (data.error) {
+            $("#o_password+.invalid-feedback").css("display", "block")
+          } else {
+            $(".success_modal_button").click()
+          }
+        },
+        error: function (error) {
+          console.log(error);
+          $("#o_password+.invalid-feedback").css("display", "block")
+        }
+      });
+    }
+    // 判断是否为空，为空弹窗
+    function is_empty() {
+      for (var index in arguments) {
+        if (arguments[index] == "") {
+          $(".modal_button").click()
+          return true
+        }
+      }
+      return false
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+	<!-- 页眉 -->
+	<head>
+		<%include('./common/head.html')%>
+		<title>首页</title>
+	</head>
+
+	<!-- /页眉 -->
+	<body>
+		<div id="app">
+			<div class="page_index" id="page_index">
+				<!-- 页头 -->
+				<%include('./common/header.html')%>
+				<!-- /页头 -->
+
+				<!-- 主体 -->
+				<main>
+					<!-- 轮播图 -->
+					<%include('./components/slides.html')%>
+					<!-- /轮播图 -->
+
+					{{list_notice}}
+
+					<%include('./components/ad.html',{list: list_ad,location:"顶部广告"})%>
+
+					{{list_article_hot}}
+
+					<%include('./components/ad.html',{list: list_ad,location:"中部广告"})%>
+
+					{{list_article_new}}
+					
+					<!-- 商品列表 -->
+					<%include('./components/list_goods.html', { list: list_goods_sales })%>
+					<!-- /商品列表 -->
+
+					<%include('./components/ad.html',{list: list_ad,location:"底部广告"})%>
+
+					<%include('./components/list_link.html',{list: list_link})%>
+				</main>
+				<!-- /主体 -->
+
+				<!-- 页脚 -->
+				<%include('./common/footer.html')%>
+				<!-- /页脚 -->
+			</div>
+		</div>
+
+		<!-- 页尾 -->
+		<%include('./common/foot.html')%>
+		<!-- /页尾 -->
+
+	</body>
+</html>

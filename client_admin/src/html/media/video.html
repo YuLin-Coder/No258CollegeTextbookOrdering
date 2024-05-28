@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>视频预览</title>
+	</head>
+
+	<body>
+		<video width="320" height="240" controls>
+			<source src="{{query.src}}" type="video/{{extension(query.src)}}" />
+		</video>
+	</body>
+
+</html>
